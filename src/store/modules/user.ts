@@ -10,7 +10,11 @@ export const useUserStore = defineStore(
     const setToken = t => (token.value = t) // 设置 token
     const removeToken = () => (token.value = '')
     // 记住密码
-    const loginRecord: Ref<LoginRecord> = ref({})
+    const loginRecord: Ref<LoginRecord> = ref({
+      remember: false,
+      username: '',
+      password: '',
+    })
     const setLoginRecord = (record: LoginRecord) => {
       loginRecord.value = record.remember ? record : {}
     }

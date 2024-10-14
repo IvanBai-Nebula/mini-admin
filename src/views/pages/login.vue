@@ -1,11 +1,15 @@
 <script setup lang="ts">
 import type { FormInstance, FormRules } from 'element-plus'
+import { postAdminLogin } from '@/api/user'
 import { useTabsStore, useUserStore } from '@/store'
+import { Lock } from '@element-plus/icons-vue'
+import { v4 } from 'uuid'
 
 const router = useRouter()
 const userStore = useUserStore()
-const rememberMe = userStore.loginRecord.value.rememberMe
-const defParam = rememberMe || null
+
+const rememberMe = userStore.loginRecord?.value?.rememberMe ?? false
+const defParam = rememberMe ? userStore.loginRecord.value : {}
 const checked: Ref<boolean> = ref(false)
 
 interface LoginInfo {
@@ -27,22 +31,23 @@ const login = ref<FormInstance>()
 function submitForm(formEl: FormInstance | undefined) {
   if (!formEl)
     return
-  formEl.validate((valid: boolean) => {
+  formEl.validate(async (valid: boolean) => {
     if (valid) {
-      ElMessage.success('登录成功')
-      localStorage.setItem('vuems_name', param.username)
+      const res = await postAdminLogin(param)
+      console.log(res)
+      userStore.setToken(res.token)
+      userStore.setUserInfo(res.data)
 
-      router.push('/')
-      if (checked.value) {
-        localStorage.setItem('login-param', JSON.stringify(param))
+      if (rememberMe) {
+        const fakePassword = v4()
+        userStore.setLoginRecord(param.username, fakePassword, true)
       }
       else {
-        localStorage.removeItem('login-param')
+        userStore.removeLoginRecord()
       }
-    }
-    else {
-      ElMessage.error('登录失败')
-      return false
+
+      ElMessage.success('登录成功')
+      await router.push('/')
     }
   })
 }

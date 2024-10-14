@@ -1,7 +1,7 @@
 export interface LoginRecord {
   username: string
   password: string
-  rememberMe?: boolean
+  rememberMe: boolean
 }
 
 export interface User {
