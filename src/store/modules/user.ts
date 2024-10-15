@@ -1,5 +1,5 @@
 import type { LoginRecord, User } from '@/types/user'
-import { getAdminProfile } from '@/api/user'
+import { encrypt } from '@/utils/encrypt'
 
 // 用户模块
 export const useUserStore = defineStore(
@@ -10,23 +10,25 @@ export const useUserStore = defineStore(
     const setToken = t => (token.value = t) // 设置 token
     const removeToken = () => (token.value = '')
     // 记住密码
-    const loginRecord: Ref<LoginRecord> = ref({
-      remember: false,
-      username: '',
-      password: '',
-    })
+    const loginRecord: Ref<LoginRecord> = ref({})
     const setLoginRecord = (record: LoginRecord) => {
-      loginRecord.value = record.remember ? record : {}
+      loginRecord.value.username = record.username
+      loginRecord.value.password = encrypt(record.password)
+    }
+    const removeLoginRecord = () => {
+      loginRecord.value = {}
     }
     // 登录状态
     // 获取用户信息
     const user: Ref<User> = ref({})
-    const getUser = async () => {
-      const res = await getAdminProfile() // 请求获取数据
-      user.value = res.data.data
+    const setUser = (u: User) => {
+      user.value = u
+    }
+    const resetUser = () => {
+      user.value = {}
     }
 
-    return { token, setToken, removeToken, loginRecord, setLoginRecord, user, getUser }
+    return { token, setToken, removeToken, loginRecord, setLoginRecord, removeLoginRecord, user, setUser, resetUser }
   },
   {
     persist: true, // 持久化

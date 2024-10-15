@@ -2,15 +2,14 @@
 import type { FormInstance, FormRules } from 'element-plus'
 import { postAdminLogin } from '@/api/user'
 import { useTabsStore, useUserStore } from '@/store'
+import { decrypt } from '@/utils/encrypt'
 import { Lock } from '@element-plus/icons-vue'
-import { v4 } from 'uuid'
 
 const router = useRouter()
 const userStore = useUserStore()
 
-const rememberMe = userStore.loginRecord?.value?.rememberMe ?? false
-const defParam = rememberMe ? userStore.loginRecord.value : {}
-const checked: Ref<boolean> = ref(false)
+const defParam = userStore.loginRecord || {}
+const checked: Ref<boolean> = ref(!!defParam)
 
 interface LoginInfo {
   username: string
@@ -18,8 +17,8 @@ interface LoginInfo {
 }
 
 const param = reactive<LoginInfo>({
-  username: defParam ? defParam.username : '',
-  password: defParam ? defParam.password : '',
+  username: defParam.username || '',
+  password: defParam.password || '',
 })
 
 const rules: FormRules = {
@@ -33,14 +32,16 @@ function submitForm(formEl: FormInstance | undefined) {
     return
   formEl.validate(async (valid: boolean) => {
     if (valid) {
+      if (defParam) {
+        param.password = decrypt(defParam.password)
+      }
+      console.log(param)
       const res = await postAdminLogin(param)
-      console.log(res)
       userStore.setToken(res.token)
-      userStore.setUserInfo(res.data)
+      userStore.setUser(res.data)
 
-      if (rememberMe) {
-        const fakePassword = v4()
-        userStore.setLoginRecord(param.username, fakePassword, true)
+      if (checked.value) {
+        userStore.setLoginRecord(param)
       }
       else {
         userStore.removeLoginRecord()

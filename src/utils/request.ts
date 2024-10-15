@@ -16,7 +16,7 @@ instance.interceptors.request.use(
     //  携带token
     const useStore = useUserStore()
     if (useStore.token) {
-      config.headers.Authorization = useStore.token
+      config.headers.Authorization = `Bearer ${useStore.token}`
     }
     return config
   },
@@ -42,6 +42,7 @@ instance.interceptors.response.use(
         router.push('/login').then()
       }
     }
+    ElMessage.error('服务异常')
     return Promise.reject(error)
   },
 )
