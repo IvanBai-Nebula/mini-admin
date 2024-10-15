@@ -3,8 +3,8 @@ import router from '@/router'
 import { useUserStore } from '@/store'
 import axios from 'axios'
 
-const baseURL = 'http://192.168.3.111:8000/'
-
+const baseURL = 'http://127.0.0.1:8000/'
+// 'http://192.168.3.111:8000/'
 const instance: AxiosInstance = axios.create({
 // 基地址，超时时间
   baseURL,

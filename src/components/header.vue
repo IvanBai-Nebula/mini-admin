@@ -22,7 +22,7 @@ onMounted(() => {
 const router = useRouter()
 function handleCommand(command: string) {
   if (command === 'loginout') {
-    localStorage.removeItem('vuems_name')
+    userStore.logout()
     router.push('/user')
   }
   else if (command === 'user') {
@@ -35,6 +35,7 @@ function setFullScreen() {
     document.exitFullscreen()
   }
   else {
+    // eslint-disable-next-line no-useless-call
     document.body.requestFullscreen.call(document.body)
   }
 }

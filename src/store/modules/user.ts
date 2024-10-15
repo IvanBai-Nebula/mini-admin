@@ -18,8 +18,7 @@ export const useUserStore = defineStore(
     const removeLoginRecord = () => {
       loginRecord.value = {}
     }
-    // 登录状态
-    // 获取用户信息
+    // 用户信息
     const user: Ref<User> = ref({})
     const setUser = (u: User) => {
       user.value = u
@@ -27,8 +26,12 @@ export const useUserStore = defineStore(
     const resetUser = () => {
       user.value = {}
     }
-
-    return { token, setToken, removeToken, loginRecord, setLoginRecord, removeLoginRecord, user, setUser, resetUser }
+    // 退出登录
+    const logout = () => {
+      removeToken()
+      resetUser()
+    }
+    return { token, setToken, removeToken, loginRecord, setLoginRecord, removeLoginRecord, user, setUser, resetUser, logout }
   },
   {
     persist: true, // 持久化
