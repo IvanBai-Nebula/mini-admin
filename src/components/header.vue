@@ -23,7 +23,7 @@ const router = useRouter()
 function handleCommand(command: string) {
   if (command === 'loginout') {
     localStorage.removeItem('vuems_name')
-    router.push('/login')
+    router.push('/user')
   }
   else if (command === 'user') {
     router.push('/ucenter')

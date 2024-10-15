@@ -225,12 +225,12 @@ const routes: RouteRecordRaw[] = [
     ],
   },
   {
-    path: '/login',
+    path: '/user',
     meta: {
       title: '登录',
       noAuth: true,
     },
-    component: () => import(/* webpackChunkName: "login" */ '../views/pages/login.vue'),
+    component: () => import(/* webpackChunkName: "user" */ '../views/pages/login.vue'),
   },
   {
     path: '/register',
@@ -278,7 +278,7 @@ router.beforeEach((to, from, next) => {
   // const permiss = usePermissStore()
   //
   // if (!role && to.meta.noAuth !== true) {
-  //   next('/login')
+  //   next('/user')
   // }
   // else if (typeof to.meta.permiss == 'string' && !permiss.key.includes(to.meta.permiss)) {
   //   // 如果没有权限，则进入403

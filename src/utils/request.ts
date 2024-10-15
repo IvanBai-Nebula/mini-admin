@@ -39,7 +39,7 @@ instance.interceptors.response.use(
     // 错误的特殊情况（权限不足，登录过期）
     if (error.response) {
       if (error.response.status === 401) {
-        router.push('/login').then()
+        router.push('/user').then()
       }
     }
     ElMessage.error('服务异常')

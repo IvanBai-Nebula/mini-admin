@@ -29,7 +29,7 @@ function submitForm(formEl: FormInstance | undefined) {
   formEl.validate((valid: boolean) => {
     if (valid) {
       ElMessage.success('注册成功，请登录')
-      router.push('/login')
+      router.push('/user')
     }
     else {
       return false
@@ -84,7 +84,7 @@ function submitForm(formEl: FormInstance | undefined) {
           注册
         </el-button>
         <p class="login-text">
-          已有账号，<el-link type="primary" @click="$router.push('/login')">
+          已有账号，<el-link type="primary" @click="$router.push('/user')">
             立即登录
           </el-link>
         </p>

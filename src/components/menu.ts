@@ -189,7 +189,7 @@ export const menuData: Menus[] = [
       {
         id: '62',
         pid: '6',
-        index: '/login',
+        index: '/user',
         title: '登录',
       },
       {

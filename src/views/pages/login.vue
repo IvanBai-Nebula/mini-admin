@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { FormInstance, FormRules } from 'element-plus'
-import { postAdminLogin } from '@/api/user'
+import { postAdminLogin } from '@/api/user/login'
 import { useTabsStore, useUserStore } from '@/store'
 import { decrypt } from '@/utils/encrypt'
 import { Lock } from '@element-plus/icons-vue'
@@ -35,7 +35,6 @@ function submitForm(formEl: FormInstance | undefined) {
       if (defParam) {
         param.password = decrypt(defParam.password)
       }
-      console.log(param)
       const res = await postAdminLogin(param)
       userStore.setToken(res.token)
       userStore.setUser(res.data)
