@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import vHeader from '@/components/header.vue'
-import vSidebar from '@/components/sidebar.vue'
-import vTabs from '@/components/tabs.vue'
 import { useSidebarStore, useTabsStore } from '@/store'
 
 const sidebar = useSidebarStore()
@@ -10,10 +7,10 @@ const tabs = useTabsStore()
 
 <template>
   <div class="wrapper">
-    <v-header />
-    <v-sidebar />
+    <Header />
+    <Sidebar />
     <div class="content-box" :class="{ 'content-collapse': sidebar.collapse }">
-      <v-tabs />
+      <Tabs />
       <div class="content">
         <router-view v-slot="{ Component }">
           <transition name="move" mode="out-in">

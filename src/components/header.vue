@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { useSidebarStore } from '@/store'
+import { useSidebarStore, useUserStore } from '@/store'
 import imgurl from '~/img/img.jpg'
 
-const username: string | null = localStorage.getItem('vuems_name')
+const userStore = useUserStore()
+const username: string | null = userStore.user.username
 const message: number = 2
 
 const sidebar = useSidebarStore()

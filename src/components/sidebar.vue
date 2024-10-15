@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { menuData } from '@/components/menu'
 import { useSidebarStore } from '@/store'
 
 const route = useRoute()

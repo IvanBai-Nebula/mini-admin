@@ -1,5 +1,4 @@
 <script setup lang="ts" name="dashboard">
-import countup from '@/components/countup.vue'
 import chinaMap from '@/utils/china'
 import { BarChart, LineChart, MapChart, PieChart } from 'echarts/charts'
 import {
@@ -103,7 +102,7 @@ const ranks = [
             <User />
           </el-icon>
           <div class="card-content">
-            <countup class="card-num color1" :end="6666" />
+            <CountUp class="card-num color1" :end="6666" />
             <div>用户访问量</div>
           </div>
         </el-card>
@@ -115,7 +114,7 @@ const ranks = [
             <ChatDotRound />
           </el-icon>
           <div class="card-content">
-            <countup class="card-num color2" :end="168" />
+            <CountUp class="card-num color2" :end="168" />
             <div>系统消息</div>
           </div>
         </el-card>
@@ -126,7 +125,7 @@ const ranks = [
             <Goods />
           </el-icon>
           <div class="card-content">
-            <countup class="card-num color3" :end="8888" />
+            <CountUp class="card-num color3" :end="8888" />
             <div>商品数量</div>
           </div>
         </el-card>
@@ -137,7 +136,7 @@ const ranks = [
             <ShoppingCartFull />
           </el-icon>
           <div class="card-content">
-            <countup class="card-num color4" :end="568" />
+            <CountUp class="card-num color4" :end="568" />
             <div>今日订单量</div>
           </div>
         </el-card>
